@@ -4,6 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
+import io.fabric.sdk.android.Fabric;
 
 
 public class GitDemoActivity extends ActionBarActivity {
@@ -11,6 +16,7 @@ public class GitDemoActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         setContentView(R.layout.activity_git_demo);
     }
 
@@ -21,6 +27,11 @@ public class GitDemoActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_git_demo, menu);
         return true;
     }
+
+    public void forceCrash(View view) {
+        throw new RuntimeException("This is a crash");
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
